@@ -5,18 +5,14 @@ from financas.models import RendaMensal
 
 
 # Create your views here.
-def Exibicacao(request):
-
-    if request.method == 'GET':
-        financas = RendaMensal.objects.all()
-        context = {
-            'RendaMensal': RendaMensal,
-            'form': RendaMensalForm
-        }
-        return render(request,'principal/index.html',context)
-    
-    if request.method == 'POST':
+def renda_view(request):
+    if request.method == "POST":
         form = RendaMensalForm(request.POST)
         if form.is_valid():
             form.save()
-    return render(request,'principal/index.html')
+            return redirect("renda_view")  # redireciona para evitar reenvio
+    else:
+        form = RendaMensalForm()
+python -m venv .env
+    financas = RendaMensal.objects.all()
+    return render(request, "financas/index.html", {"form": form, "financas": financas})
